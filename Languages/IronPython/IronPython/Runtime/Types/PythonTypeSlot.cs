@@ -43,9 +43,15 @@ namespace IronPython.Runtime.Types {
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1007:UseGenericsWhereAppropriate")]
         internal virtual bool TryGetValue(CodeContext context, object instance, PythonType owner, out object value) {
+            return TryGetValueOverridable(context, instance, owner, out value);
+        }
+
+        public virtual bool TryGetValueOverridable(CodeContext context, object instance, PythonType owner, out object value)
+        {
             value = null;
             return false;
         }
+
 
         /// <summary>
         /// Sets the value of the slot for the given instance.
@@ -114,6 +120,14 @@ namespace IronPython.Runtime.Types {
         /// </summary>
         internal virtual bool GetAlwaysSucceeds {
             get {
+                return GetAlwaysSucceedsOverridable;
+            }
+        }
+
+        public virtual bool GetAlwaysSucceedsOverridable
+        {
+            get
+            {
                 return false;
             }
         }
